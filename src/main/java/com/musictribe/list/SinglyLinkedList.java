@@ -1,7 +1,7 @@
 package com.musictribe.list;
 
-public class SinglyLinkedList<E> implements List<E> {
-
+public class SinglyLinkedList<E> {
+	
 	private static class Node<E> {
 		
 		private E element;
@@ -17,18 +17,18 @@ public class SinglyLinkedList<E> implements List<E> {
 			return element;
 		}
 
-		public void setElement(E element) {
-			this.element = element;
-		}
-
 		public Node<E> getNext() {
 			return next;
+		}
+
+		@SuppressWarnings("unused")
+		public void setElement(E element) {
+			this.element = element;
 		}
 
 		public void setNext(Node<E> next) {
 			this.next = next;
 		}
-		
 	}
 	
 	private Node<E> head = null;
@@ -37,53 +37,60 @@ public class SinglyLinkedList<E> implements List<E> {
 	
 	private int size = 0;
 	
-	@Override
 	public int size() {
 		return size;
 	}
-
-	@Override
+	
 	public boolean isEmpty() {
 		return size == 0;
 	}
-
-	@Override
-	public void addFirst(E element) {
-		head = new Node<>(element, head);
-		if(isEmpty()) {
-			tail = head;
-		}
-		size++;
-	}
-
-	@Override
-	public void addLast(E element) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeFirst() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
+	
 	public E first() {
-		if(isEmpty()) {
+		if(size == 0) {
 			return null;
 		}
 		
 		return head.getElement();
 	}
-
-	@Override
+	
 	public E last() {
-		if(isEmpty()) {
+		if(size == 0) {
 			return null;
 		}
 		
 		return tail.getElement();
 	}
-
+	
+	public void addFirst(E element) {
+		head = new Node<>(element, head);
+		if(size == 0) {
+			tail = head;
+		}
+		size++;
+	}
+	
+	public void addLast(E element) {
+		Node<E> newNode = new Node<>(element, null);
+		if(size == 0) {
+			head = newNode;
+		}
+			
+		tail.setNext(newNode);
+		tail = newNode;
+		size++;
+	}
+	
+	public E removeFirst() {
+		if(size == 0) {
+			return null;
+		}
+		
+		E element = head.getElement();
+		head = head.getNext();
+		size--;
+		if(size == 0) {
+			tail = null;
+		}
+		return element;
+	}
 }
