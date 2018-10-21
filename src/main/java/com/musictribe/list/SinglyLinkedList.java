@@ -73,9 +73,9 @@ public class SinglyLinkedList<E> {
 		Node<E> newNode = new Node<>(element, null);
 		if(size == 0) {
 			head = newNode;
+		} else {
+			tail.setNext(newNode);
 		}
-			
-		tail.setNext(newNode);
 		tail = newNode;
 		size++;
 	}
